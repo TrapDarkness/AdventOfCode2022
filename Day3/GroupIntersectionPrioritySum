@@ -1,0 +1,24 @@
+priority_sum = 0 #check back against this variable for finding the most calories
+counter = 0
+group = [set(), set(), set()]
+
+def priority_score(character):
+    priority = ord(list(character)[0]) - 96
+    if priority < 0:
+        priority += 58
+    #print(str(character) + ": " + str(priority))
+    return priority
+
+with open("input.txt", "r") as open_file:
+    for line in open_file:
+        #print(counter)
+        group[counter] = set(line.strip('\n'))
+        if counter == 2:
+            counter = -1
+            overlap = group[0].intersection(group[1].intersection(group[2]))
+            print(overlap)
+            if overlap != set():
+                priority_sum += priority_score(overlap)
+        counter += 1
+
+print(priority_sum)
